@@ -10,6 +10,7 @@ export class InputComponent implements OnInit, AfterContentInit {
 // decorator input, pois será informado de fora para dentro do componente
   @Input() label: string
   @Input() errorMessage: string
+  @Input() showTip = true
   input: any
 // como paramentro do ContentChild pode ser usado uma diretiva, ou referença a um elemento
 // aqui vamos usar uma diretiva
