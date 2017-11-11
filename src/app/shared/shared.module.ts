@@ -15,6 +15,8 @@ import { SnackbarComponent } from './messages/snackbar/snackbar.component'
 // Classe de envio de mensagem (notificacao)
 import {NotificationService} from './messages/notification.service'
 
+import {LoginService} from '../security/login/login.service'
+
 @NgModule ({
     declarations: [InputComponent, RadioComponent, RatingComponent, SnackbarComponent],
     imports:[CommonModule, FormsModule, ReactiveFormsModule],
@@ -25,7 +27,8 @@ export class SharedModule {
     static forRoot(): ModuleWithProviders {
         return {
             ngModule: SharedModule,
-            providers: [ShoppingCartService, OrderService, RestaurantsService, NotificationService]
+            providers: [ShoppingCartService, OrderService, 
+                RestaurantsService, NotificationService, LoginService]
         }
     }
 }
