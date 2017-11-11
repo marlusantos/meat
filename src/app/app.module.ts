@@ -28,7 +28,8 @@ import { ReviewsComponent } from './restaurant-detail/reviews/reviews.component'
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
 import {SharedModule} from './shared/shared.module';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { LoginComponent } from './security/login/login.component'
+import { LoginComponent } from './security/login/login.component';
+import { UserDetailComponent } from './header/user-detail/user-detail.component'
 // PARA usar rotas, deveter ter as rotas (arquivo app.routes), deve configurar no app.modulo e
 // por fim precisa configurar a regiao onde será alternada entre as rotas.
 //
@@ -46,7 +47,8 @@ import { LoginComponent } from './security/login/login.component'
     ReviewsComponent,
     OrderSummaryComponent,
     NotFoundComponent,
-    LoginComponent
+    LoginComponent,
+    UserDetailComponent
   ],
   imports: [
     BrowserModule,

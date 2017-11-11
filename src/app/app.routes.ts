@@ -11,8 +11,11 @@ import { NotFoundComponent} from './not-found/not-found.component'
 
 import {OrderSummaryComponent} from './order-summary/order-summary.component'
 
+import {LoggedInGuard} from './security/loggedin.guard'
+
 export const ROUTES: Routes = [
     {path: '', component: HomeComponent},
+    {path: 'login/:to', component: LoginComponent},
     {path: 'login', component: LoginComponent},
     {path: 'about', loadChildren: './about/about.module#AboutModule'},
     {path: 'restaurants', component: RestaurantsComponent},
@@ -22,7 +25,8 @@ export const ROUTES: Routes = [
             {path: 'menu', component: MenuComponent},
             {path: 'reviews', component: ReviewsComponent}]
     },
-    {path: 'order', loadChildren: './order/order.module#OrderModule'},
+    {path: 'order', loadChildren: './order/order.module#OrderModule', 
+        canLoad: [LoggedInGuard], canActivate:[LoggedInGuard] },
     {path: 'order-summary', component: OrderSummaryComponent},
     {path: '**', component: NotFoundComponent}
 
