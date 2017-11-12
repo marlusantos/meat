@@ -3,6 +3,8 @@ import {RadioOption} from '../shared/radio/radio-option.model'
 import {OrderService} from './order.service'
 import {CartItem} from '../restaurant-detail/shopping-cart/cart-item.model'
 
+import 'rxjs/add/operator/do'
+
 // para usar React Forms
 import {FormGroup, FormBuilder, Validators, AbstractControl} from '@angular/forms'
 
@@ -15,7 +17,7 @@ import {Order, OrderItem} from './order.model'
 })
 export class OrderComponent implements OnInit {
 
-
+  orderId: string
   orderForm: FormGroup
 
   emailPattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
@@ -84,10 +86,18 @@ export class OrderComponent implements OnInit {
   checkOrder(order: Order){
     order.orderItems = this.cartItems()
     .map((item: CartItem) => new OrderItem(item.quantity, item.menuItem.id))
-    this.orderService.checkOrder(order).subscribe((orderId: string) => {
+    this.orderService.checkOrder(order)
+     .do((orderId: string)=>{
+       this.orderId = orderId
+     })
+     .subscribe((orderId: string) => {
       this.router.navigate(['/order-summary'])
       console.log(`Compra concluída: ${orderId}`)})
     this.orderService.clear()
     console.log(order)
+  }
+  isOrderCompleted(): boolean{
+    return this.orderId !== undefined
+
   }
 }
