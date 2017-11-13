@@ -6,6 +6,9 @@ import {RatingComponent} from './rating/rating.component'
 import {CommonModule} from '@angular/common'
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 
+// interceptor
+import {HTTP_INTERCEPTORS} from '@angular/common/http'
+import {AuthInterceptor} from '../security/auth.interceptor'
 // servicos em um modulo compartilhado
 import {OrderService} from '../order/order.service'
 import {ShoppingCartService} from '../restaurant-detail/shopping-cart/shopping-cart.service'
@@ -34,7 +37,9 @@ export class SharedModule {
             providers: [ShoppingCartService, OrderService, 
                 RestaurantsService, NotificationService, 
                 LoginService, LoggedInGuard,
-                LeaveOrderGuard]
+                LeaveOrderGuard,
+                {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true}
+            ]
         }
     }
 }

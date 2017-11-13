@@ -6,7 +6,7 @@ import {Observable} from 'rxjs/Observable'
 import 'rxjs/add/operator/map'
 
 import {MEAT_API} from '../app.api'
-import {LoginService} from '../security/login/login.service' // 1
+// import {LoginService} from '../security/login/login.service' // 1
 
 import {Order, OrderItem} from './order.model'
 
@@ -15,7 +15,9 @@ import {Order, OrderItem} from './order.model'
 export class OrderService {
     constructor(private cartService: ShoppingCartService, 
                 private http: HttpClient,
-                private loginService: LoginService) {} // 2
+                // 2
+               // private loginService: LoginService
+            ) {} 
 
     itemsValue(): number {
         return this.cartService.total()
@@ -37,16 +39,13 @@ export class OrderService {
         this.cartService.clear()
     }
     checkOrder(order: Order): Observable<string>{
-        let headers = new HttpHeaders() // metodos set e up
+        /*let headers = new HttpHeaders() // metodos set e up
         if(this.loginService.isLoggedIn){
             headers = headers.set('Authorization',`Bearer ${this.loginService.user.accessToken}`)
-        }
-        /** const headers = new Headers()
-        headers.append('Content-Type', 'application/json') 
-        return this.http.post(`${MEAT_API}/orders`, JSON.stringify(order), new RequestOptions({headers: headers}))
-                .map(response => response.json())
-                .map(order => order.id) **/
-                return this.http.post<Order>(`${MEAT_API}/orders`, order, {headers: headers})
-                                        .map(order => order.id)
+        }*/
+        /*    return this.http.post<Order>(`${MEAT_API}/orders`, order, {headers: headers})
+                                        .map(order => order.id)*/
+             return this.http.post<Order>(`${MEAT_API}/orders`, order)
+                .map(order => order.id)
     }
 }
