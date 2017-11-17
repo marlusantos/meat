@@ -14,14 +14,13 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { MEAT_API } from '../app.api';
 var RestaurantsService = (function () {
-    // tslint:disable-next-line:one-line
     function RestaurantsService(http) {
         this.http = http;
     }
     RestaurantsService.prototype.restaurants = function (search) {
         var params = undefined;
         if (search) {
-            params = new HttpParams().set('q', search); // params é imutável e adicionado uma copia
+            params = new HttpParams().append('q', search);
         }
         return this.http.get(MEAT_API + "/restaurants", { params: params });
     };
@@ -33,8 +32,6 @@ var RestaurantsService = (function () {
     };
     RestaurantsService.prototype.menuOfRestaurant = function (id) {
         return this.http.get(MEAT_API + "/restaurants/" + id + "/menu");
-        // .map(response => response.json())
-        //    .catch(ErrorHandler.handlerError)
     };
     RestaurantsService = __decorate([
         Injectable(),
@@ -43,4 +40,32 @@ var RestaurantsService = (function () {
     return RestaurantsService;
 }());
 export { RestaurantsService };
+/*
+@Injectable()
+export class RestaurantsService {
+
+    // tslint:disable-next-line:one-line
+    constructor(private http: HttpClient){    }
+    restaurants(search?: string): Observable<Restaurant[]> {
+        let params: HttpParams = undefined
+        if(search){
+            params = new HttpParams().set('q', search) // params é imutável e adicionado uma copia
+        }
+        return this.http.get<Restaurant[]>(`${MEAT_API}/restaurantss`, {params: params})
+    }
+    restaurantsById(id: string): Observable<Restaurant> {
+        return this.http.get<Restaurant>(`${MEAT_API}/restaurants/${id}`)
+    }
+
+     reviewsOfRestaurant(id: string): Observable<any> {
+        return this.http.get(`${MEAT_API}/restaurants/${id}/reviews`)
+
+    }
+
+     menuOfRestaurant(id: string): Observable<MenuItem[]> {
+        return this.http.get<MenuItem[]>(`${MEAT_API}/restaurants/${id}/menu`)
+        // .map(response => response.json())
+        //    .catch(ErrorHandler.handlerError)
+    }
+}*/
 //# sourceMappingURL=restaurants.service.js.map

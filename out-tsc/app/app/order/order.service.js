@@ -36,17 +36,19 @@ var OrderService = (function () {
         this.cartService.clear();
     };
     OrderService.prototype.checkOrder = function (order) {
-        /** const headers = new Headers()
-        headers.append('Content-Type', 'application/json')
-        return this.http.post(`${MEAT_API}/orders`, JSON.stringify(order), new RequestOptions({headers: headers}))
-                .map(response => response.json())
-                .map(order => order.id) **/
+        /*let headers = new HttpHeaders() // metodos set e up
+        if(this.loginService.isLoggedIn){
+            headers = headers.set('Authorization',`Bearer ${this.loginService.user.accessToken}`)
+        }*/
+        /*    return this.http.post<Order>(`${MEAT_API}/orders`, order, {headers: headers})
+                                        .map(order => order.id)*/
         return this.http.post(MEAT_API + "/orders", order)
             .map(function (order) { return order.id; });
     };
     OrderService = __decorate([
         Injectable(),
-        __metadata("design:paramtypes", [ShoppingCartService, HttpClient])
+        __metadata("design:paramtypes", [ShoppingCartService,
+            HttpClient])
     ], OrderService);
     return OrderService;
 }());

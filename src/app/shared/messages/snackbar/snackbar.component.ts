@@ -45,7 +45,7 @@ export class SnackbarComponent implements OnInit {
       this.snackVisibility = 'visible'
       // troca os eventos (o observable e ainda faz o unsubscribe quando existe varios pedidos no mesmo subscribe)
     }).switchMap(message=> Observable.timer(3000)) // troca o Observable inteiro, nao tera timer concorrentes
-      .subscribe(timer=> this.snackVisibility = 'hidden')
+    .subscribe(timer=> this.snackVisibility = 'hidden')
   }
 
 

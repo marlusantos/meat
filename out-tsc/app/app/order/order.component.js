@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { OrderService } from './order.service';
+import 'rxjs/add/operator/do';
 // para usar React Forms
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -73,12 +74,19 @@ var OrderComponent = (function () {
         var _this = this;
         order.orderItems = this.cartItems()
             .map(function (item) { return new OrderItem(item.quantity, item.menuItem.id); });
-        this.orderService.checkOrder(order).subscribe(function (orderId) {
+        this.orderService.checkOrder(order)
+            .do(function (orderId) {
+            _this.orderId = orderId;
+        })
+            .subscribe(function (orderId) {
             _this.router.navigate(['/order-summary']);
             console.log("Compra conclu\u00EDda: " + orderId);
         });
         this.orderService.clear();
         console.log(order);
+    };
+    OrderComponent.prototype.isOrderCompleted = function () {
+        return this.orderId !== undefined;
     };
     OrderComponent = OrderComponent_1 = __decorate([
         Component({

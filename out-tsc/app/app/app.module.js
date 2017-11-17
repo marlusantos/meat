@@ -6,7 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import { BrowserModule } from '@angular/platform-browser';
 // para localizacao regional, usar LOCALE_ID
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgModule, LOCALE_ID, ErrorHandler } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, PreloadAllModules } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,6 +24,9 @@ import { ReviewsComponent } from './restaurant-detail/reviews/reviews.component'
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
 import { SharedModule } from './shared/shared.module';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { LoginComponent } from './security/login/login.component';
+import { UserDetailComponent } from './header/user-detail/user-detail.component';
+import { ApplicationErrorHandler } from './app.error-handler';
 // PARA usar rotas, deveter ter as rotas (arquivo app.routes), deve configurar no app.modulo e
 // por fim precisa configurar a regiao onde será alternada entre as rotas.
 //
@@ -44,7 +47,9 @@ var AppModule = (function () {
                 MenuItemComponent,
                 ReviewsComponent,
                 OrderSummaryComponent,
-                NotFoundComponent
+                NotFoundComponent,
+                LoginComponent,
+                UserDetailComponent
             ],
             imports: [
                 BrowserModule,
@@ -63,7 +68,8 @@ var AppModule = (function () {
             // Mudando a localizacao para pt-BR
             // toda vez que usar o LOCALE_ID vai mudar para pt-BR
             // USANDO sintaxe extendida, ao contrario da sintaxe do RestaurantService que está reduzida
-            providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
+            providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' },
+                { provide: ErrorHandler, useClass: ApplicationErrorHandler }],
             // providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, {provide: LOCALE_ID, useValue: 'pt-BR'}],
             bootstrap: [AppComponent]
         })

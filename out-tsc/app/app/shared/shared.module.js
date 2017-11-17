@@ -10,6 +10,9 @@ import { RadioComponent } from './radio/radio.component';
 import { RatingComponent } from './rating/rating.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+// interceptor
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../security/auth.interceptor';
 // servicos em um modulo compartilhado
 import { OrderService } from '../order/order.service';
 import { ShoppingCartService } from '../restaurant-detail/shopping-cart/shopping-cart.service';
@@ -17,6 +20,9 @@ import { RestaurantsService } from '../restaurants/restaurants.service';
 import { SnackbarComponent } from './messages/snackbar/snackbar.component';
 // Classe de envio de mensagem (notificacao)
 import { NotificationService } from './messages/notification.service';
+import { LoginService } from '../security/login/login.service';
+import { LoggedInGuard } from '../security/loggedin.guard';
+import { LeaveOrderGuard } from '../order/leave-order.guard';
 var SharedModule = (function () {
     function SharedModule() {
     }
@@ -24,7 +30,12 @@ var SharedModule = (function () {
     SharedModule.forRoot = function () {
         return {
             ngModule: SharedModule_1,
-            providers: [ShoppingCartService, OrderService, RestaurantsService, NotificationService]
+            providers: [ShoppingCartService, OrderService,
+                RestaurantsService, NotificationService,
+                LoginService, LoggedInGuard,
+                LeaveOrderGuard,
+                { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+            ]
         };
     };
     SharedModule = SharedModule_1 = __decorate([

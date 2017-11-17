@@ -11,6 +11,7 @@ import { Component, Input, ContentChild } from '@angular/core';
 import { NgModel, FormControlName } from '@angular/forms';
 var InputComponent = (function () {
     function InputComponent() {
+        this.showTip = true;
     }
     InputComponent.prototype.ngOnInit = function () {
     };
@@ -35,6 +36,10 @@ var InputComponent = (function () {
         Input(),
         __metadata("design:type", String)
     ], InputComponent.prototype, "errorMessage", void 0);
+    __decorate([
+        Input(),
+        __metadata("design:type", Object)
+    ], InputComponent.prototype, "showTip", void 0);
     __decorate([
         ContentChild(NgModel),
         __metadata("design:type", NgModel)
